@@ -130,3 +130,22 @@ document.addEventListener("mouseleave", () => {
     paper.style.transform = "rotateX(0deg) rotateY(0deg)";
 
 });
+
+// ===============================
+// MEMORY PAGE
+// ===============================
+
+const memoriesBtn = document.getElementById("memories-btn");
+const backBtn = document.getElementById("back-btn");
+
+memoriesBtn.addEventListener("click", () => {
+
+    document.body.classList.add("memories");
+
+});
+
+backBtn.addEventListener("click", () => {
+
+    document.body.classList.remove("memories");
+
+});
