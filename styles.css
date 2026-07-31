@@ -1,335 +1,418 @@
-/* ==========================================
+/* ===========================================
    RESET
-========================================== */
+=========================================== */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
+html,body{
+    width:100%;
+    height:100%;
 }
 
-body {
-    overflow: hidden;
-    font-family: "Inter", sans-serif;
-    color: white;
-    background: #050816;
+body{
+
+    overflow:hidden;
+
+    font-family:"Poppins",sans-serif;
+
+    background:#08111f;
+
+    color:white;
+
 }
 
-/* ==========================================
+/* ===========================================
    BACKGROUND
-========================================== */
+=========================================== */
 
-#background {
-    position: fixed;
-    inset: 0;
-    z-index: -5;
+.background{
+
+    position:fixed;
+
+    inset:0;
 
     background:
-        radial-gradient(circle at 20% 15%, rgba(255, 170, 220, .22), transparent 28%),
-        radial-gradient(circle at 80% 80%, rgba(120, 170, 255, .20), transparent 35%),
-        linear-gradient(180deg,
-            #040814 0%,
-            #091325 45%,
-            #101d39 100%);
+    radial-gradient(circle at top,#3a4788 0%,transparent 40%),
+    radial-gradient(circle at bottom right,#8b4d87 0%,transparent 35%),
+    linear-gradient(180deg,#08111f,#10192e,#050812);
+
+    z-index:-5;
+
 }
 
-/* ==========================================
+/* ===========================================
    PARTICLES
-========================================== */
+=========================================== */
 
-#particles {
-    position: fixed;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-}
+#particles{
 
-.sparkle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: white;
-    opacity: 0;
-    box-shadow: 0 0 10px white;
-    animation: floatUp linear infinite;
-}
+    position:fixed;
 
-@keyframes floatUp {
+    inset:0;
 
-    0% {
-        transform: translateY(0);
-        opacity: 0;
-    }
+    pointer-events:none;
 
-    20% {
-        opacity: .6;
-    }
-
-    100% {
-        transform: translateY(-120vh);
-        opacity: 0;
-    }
+    overflow:hidden;
 
 }
 
-/* ==========================================
-   HERO
-========================================== */
+/* ===========================================
+   ENVELOPE SCREEN
+=========================================== */
 
-main {
+#envelope-screen{
 
-    width: 100%;
-    height: 100vh;
+    position:absolute;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    inset:0;
 
-    padding: 30px;
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:1s;
+
 }
 
-#hero {
+/* ===========================================
+   ENVELOPE
+=========================================== */
 
-    position: relative;
+.envelope{
 
-    width: 100%;
-    max-width: 900px;
+    position:relative;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width:340px;
+
+    height:220px;
+
+    background:#f6dcb5;
+
+    border-radius:10px;
+
+    box-shadow:
+    0 30px 60px rgba(0,0,0,.35);
+
 }
 
-/* ==========================================
-   GLOW
-========================================== */
+/* flap */
 
-#glow {
+.flap{
 
-    position: absolute;
+    position:absolute;
 
-    width: 450px;
-    height: 450px;
+    width:100%;
+    height:100%;
 
-    border-radius: 50%;
+    background:#efd2a6;
+
+    clip-path:polygon(0 0,100% 0,50% 60%);
+
+    transform-origin:top;
+
+    transition:1s;
+
+}
+
+/* preview paper */
+
+.letter-preview{
+
+    position:absolute;
+
+    left:20px;
+    right:20px;
+
+    top:25px;
+
+    height:120px;
+
+    background:#fffdf8;
+
+    border-radius:8px;
+
+}
+
+/* ===========================================
+   HEART
+=========================================== */
+
+.heart-seal{
+
+    position:absolute;
+
+    left:50%;
+    top:52%;
+
+    transform:translate(-50%,-50%);
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:#d74c61;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:34px;
+
+    cursor:pointer;
+
+    box-shadow:
+
+    0 10px 25px rgba(0,0,0,.3);
+
+    animation:heartbeat 2s infinite;
+
+    user-select:none;
+
+}
+
+@keyframes heartbeat{
+
+0%,100%{
+
+transform:translate(-50%,-50%) scale(1);
+
+}
+
+50%{
+
+transform:translate(-50%,-50%) scale(1.08);
+
+}
+
+}
+
+.tap-text{
+
+    margin-top:35px;
+
+    letter-spacing:3px;
+
+    color:#ffdfe9;
+
+    text-transform:uppercase;
+
+    font-size:.85rem;
+
+}
+
+/* ===========================================
+   LETTER SCREEN
+=========================================== */
+
+#letter-screen{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transform:translateY(100vh);
+
+    transition:1.2s ease;
+
+}
+
+/* ===========================================
+   PAPER
+=========================================== */
+
+.paper{
+
+    width:min(850px,92vw);
+
+    height:min(88vh,900px);
+
+    background:#fffdf8;
+
+    border-radius:28px;
+
+    padding:18px;
+
+    box-shadow:
+
+    0 40px 80px rgba(0,0,0,.35);
+
+}
+
+/* floral border */
+
+.paper-border{
+
+    width:100%;
+    height:100%;
+
+    border:4px solid #efc6d5;
+
+    border-radius:18px;
+
+    padding:40px;
+
+    overflow:auto;
+
+    text-align:center;
+
+    color:#493b3b;
 
     background:
-        radial-gradient(circle,
-            rgba(255, 170, 220, .28),
-            transparent 70%);
 
-    filter: blur(60px);
-
-    z-index: -1;
-
-    animation: glowPulse 5s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-
-    0% {
-        transform: scale(.9);
-        opacity: .5;
-    }
-
-    50% {
-        transform: scale(1.1);
-        opacity: .85;
-    }
-
-    100% {
-        transform: scale(.9);
-        opacity: .5;
-    }
+    linear-gradient(#fffefc,#fff9f6);
 
 }
 
-/* ==========================================
+/* ===========================================
    BOUQUET
-========================================== */
+=========================================== */
 
-#bouquet {
+#bouquet{
 
-    width: min(420px, 85vw);
+    width:min(370px,70vw);
 
-    opacity: 0;
+    display:block;
 
-    transform: scale(.35);
+    margin:0 auto 10px auto;
 
-    filter:
-        drop-shadow(0 30px 50px rgba(0,0,0,.45));
-
-}
-
-/* ==========================================
-   TITLE
-========================================== */
-
-#title {
-
-    margin-top: 25px;
-
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-
-    font-weight: 600;
-
-    letter-spacing: .5px;
-
-    text-align: center;
-
-    opacity: 0;
+    filter:drop-shadow(0 20px 30px rgba(0,0,0,.2));
 
 }
 
-/* ==========================================
+/* ===========================================
+   TITLES
+=========================================== */
+
+h1{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:3.2rem;
+
+    color:#8a3156;
+
+}
+
+h2{
+
+    margin-top:10px;
+
+    margin-bottom:30px;
+
+    font-weight:400;
+
+    color:#9d6b7a;
+
+}
+
+/* ===========================================
    MESSAGE
-========================================== */
+=========================================== */
 
-#message {
+.message{
 
-    margin-top: 25px;
+    max-width:620px;
 
-    max-width: 600px;
+    margin:auto;
 
-    text-align: center;
+    text-align:left;
 
-    line-height: 1.9;
+    line-height:2;
 
-    color: #dbe4ff;
-
-    font-size: 1.08rem;
-
-    opacity: 0;
+    font-size:1.08rem;
 
 }
 
-/* ==========================================
-   ANIMATION STATES
-========================================== */
+/* ===========================================
+   OPEN STATE
+=========================================== */
 
-.show-bouquet {
+body.open #envelope-screen{
 
-    animation:
-        bouquetEntrance 2.2s
-        cubic-bezier(.22,.91,.23,.99)
-        forwards;
+    opacity:0;
 
-}
+    transform:scale(.9);
 
-@keyframes bouquetEntrance {
-
-    0% {
-
-        opacity:0;
-
-        transform:
-            scale(.3)
-            translateY(80px);
-
-    }
-
-    55% {
-
-        opacity:1;
-
-        transform:
-            scale(1.05)
-            translateY(-8px);
-
-    }
-
-    100% {
-
-        opacity:1;
-
-        transform:
-            scale(1);
-
-    }
+    pointer-events:none;
 
 }
 
-.show-title {
+body.open .flap{
 
-    animation:
-        fadeTitle .9s forwards;
-
-}
-
-@keyframes fadeTitle {
-
-    from {
-
-        opacity:0;
-
-        transform:translateY(20px);
-
-    }
-
-    to {
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
+    transform:rotateX(180deg);
 
 }
 
-.show-message {
+body.open #letter-screen{
 
-    animation:
-        fadeMessage 1.2s forwards;
+    opacity:1;
 
-}
+    pointer-events:auto;
 
-@keyframes fadeMessage {
-
-    from {
-
-        opacity:0;
-
-        transform:translateY(18px);
-
-    }
-
-    to {
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
+    transform:translateY(0);
 
 }
 
-/* ==========================================
+/* ===========================================
    MOBILE
-========================================== */
+=========================================== */
 
-@media (max-width:700px){
+@media(max-width:700px){
 
-    #title{
+.envelope{
 
-        font-size:2.8rem;
+width:300px;
+height:190px;
 
-    }
+}
 
-    #message{
+.paper{
 
-        font-size:.98rem;
+height:92vh;
 
-        line-height:1.7;
+}
 
-    }
+.paper-border{
+
+padding:25px;
+
+}
+
+h1{
+
+font-size:2.5rem;
+
+}
+
+.message{
+
+font-size:1rem;
+
+line-height:1.8;
+
+}
 
 }

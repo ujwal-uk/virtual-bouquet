@@ -1,103 +1,132 @@
-// ==============================
+// ======================================
 // ELEMENTS
-// ==============================
+// ======================================
 
-const bouquet = document.getElementById("bouquet");
-const title = document.getElementById("title");
-const message = document.getElementById("message");
+const heart = document.getElementById("heart");
+const body = document.body;
 const particles = document.getElementById("particles");
 
-// ==============================
-// CREATE FLOATING PARTICLES
-// ==============================
+// ======================================
+// HEART CLICK
+// ======================================
+
+heart.addEventListener("click", () => {
+
+    // Prevent multiple clicks
+    heart.style.pointerEvents = "none";
+
+    // Heart pop
+    heart.animate([
+        { transform: "translate(-50%, -50%) scale(1)" },
+        { transform: "translate(-50%, -50%) scale(1.25)" },
+        { transform: "translate(-50%, -50%) scale(0.9)" },
+        { transform: "translate(-50%, -50%) scale(1)" }
+    ], {
+        duration: 400,
+        easing: "ease-out"
+    });
+
+    // Open envelope after pop
+    setTimeout(() => {
+        body.classList.add("open");
+    }, 350);
+
+});
+
+// ======================================
+// FLOATING PARTICLES
+// ======================================
 
 function createParticle() {
 
     const p = document.createElement("div");
 
-    p.className = "sparkle";
+    p.style.position = "absolute";
+    p.style.width = (Math.random() * 5 + 2) + "px";
+    p.style.height = p.style.width;
 
-    const size = Math.random() * 4 + 2;
+    p.style.borderRadius = "50%";
 
-    p.style.width = size + "px";
-    p.style.height = size + "px";
+    // Soft pink / white glow
+    const colors = [
+        "#ffffff",
+        "#ffd7e8",
+        "#ffeef5",
+        "#ffd1dc"
+    ];
 
-    p.style.left = Math.random() * 100 + "vw";
-    p.style.bottom = "-10px";
+    p.style.background =
+        colors[Math.floor(Math.random() * colors.length)];
 
-    p.style.animationDuration =
-        (8 + Math.random() * 8) + "s";
+    p.style.boxShadow =
+        "0 0 12px rgba(255,255,255,0.7)";
 
-    p.style.animationDelay =
-        Math.random() * 5 + "s";
-
-    p.style.opacity = Math.random() * .5;
+    p.style.left = Math.random() * window.innerWidth + "px";
+    p.style.top = (window.innerHeight + 30) + "px";
 
     particles.appendChild(p);
 
+    const duration = 10000 + Math.random() * 8000;
+    const drift = (Math.random() - 0.5) * 200;
+
+    p.animate([
+        {
+            transform: "translate(0px,0px)",
+            opacity: 0
+        },
+        {
+            opacity: 0.8,
+            offset: 0.15
+        },
+        {
+            transform: `translate(${drift}px,-${window.innerHeight + 200}px)`,
+            opacity: 0
+        }
+    ], {
+        duration,
+        easing: "linear"
+    });
+
+    setTimeout(() => {
+        p.remove();
+    }, duration);
+
 }
 
-for(let i=0;i<45;i++){
+// ======================================
+// KEEP PARTICLES COMING
+// ======================================
 
-    createParticle();
-
+for (let i = 0; i < 25; i++) {
+    setTimeout(createParticle, i * 250);
 }
 
-// ==============================
-// TIMELINE
-// ==============================
+setInterval(createParticle, 500);
 
-window.addEventListener("load",()=>{
+// ======================================
+// PARALLAX (LETTER ONLY)
+// ======================================
 
-    // bouquet
+const paper = document.querySelector(".paper");
 
-    setTimeout(()=>{
+document.addEventListener("mousemove", (e) => {
 
-        bouquet.classList.add("show-bouquet");
+    if (!body.classList.contains("open")) return;
 
-    },600);
+    const x = (e.clientX / window.innerWidth - 0.5) * 10;
+    const y = (e.clientY / window.innerHeight - 0.5) * 10;
 
-    // title
-
-    setTimeout(()=>{
-
-        title.classList.add("show-title");
-
-    },2800);
-
-    // message
-
-    setTimeout(()=>{
-
-        message.classList.add("show-message");
-
-    },4200);
+    paper.style.transform =
+        `rotateY(${x}deg) rotateX(${-y}deg)`;
 
 });
 
-// ==============================
-// PARALLAX
-// ==============================
+// Reset on mouse leave
 
-document.addEventListener("mousemove",(e)=>{
+document.addEventListener("mouseleave", () => {
 
-    const x =
-        (e.clientX/window.innerWidth)-0.5;
+    if (!paper) return;
 
-    const y =
-        (e.clientY/window.innerHeight)-0.5;
-
-    bouquet.style.transform =
-        `translate(${x*12}px,${y*12}px)`;
+    paper.style.transform = "rotateX(0deg) rotateY(0deg)";
 
 });
-
-// ==============================
-// MOBILE
-// ==============================
-
-if(window.innerWidth < 768){
-
-    document.removeEventListener("mousemove",()=>{});
-
-}
