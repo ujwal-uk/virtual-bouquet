@@ -1,0 +1,335 @@
+/* ==========================================
+   RESET
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    font-family: "Inter", sans-serif;
+    color: white;
+    background: #050816;
+}
+
+/* ==========================================
+   BACKGROUND
+========================================== */
+
+#background {
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+
+    background:
+        radial-gradient(circle at 20% 15%, rgba(255, 170, 220, .22), transparent 28%),
+        radial-gradient(circle at 80% 80%, rgba(120, 170, 255, .20), transparent 35%),
+        linear-gradient(180deg,
+            #040814 0%,
+            #091325 45%,
+            #101d39 100%);
+}
+
+/* ==========================================
+   PARTICLES
+========================================== */
+
+#particles {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0;
+    box-shadow: 0 0 10px white;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: .6;
+    }
+
+    100% {
+        transform: translateY(-120vh);
+        opacity: 0;
+    }
+
+}
+
+/* ==========================================
+   HERO
+========================================== */
+
+main {
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+}
+
+#hero {
+
+    position: relative;
+
+    width: 100%;
+    max-width: 900px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ==========================================
+   GLOW
+========================================== */
+
+#glow {
+
+    position: absolute;
+
+    width: 450px;
+    height: 450px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle,
+            rgba(255, 170, 220, .28),
+            transparent 70%);
+
+    filter: blur(60px);
+
+    z-index: -1;
+
+    animation: glowPulse 5s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+
+    0% {
+        transform: scale(.9);
+        opacity: .5;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: .85;
+    }
+
+    100% {
+        transform: scale(.9);
+        opacity: .5;
+    }
+
+}
+
+/* ==========================================
+   BOUQUET
+========================================== */
+
+#bouquet {
+
+    width: min(420px, 85vw);
+
+    opacity: 0;
+
+    transform: scale(.35);
+
+    filter:
+        drop-shadow(0 30px 50px rgba(0,0,0,.45));
+
+}
+
+/* ==========================================
+   TITLE
+========================================== */
+
+#title {
+
+    margin-top: 25px;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+
+    font-weight: 600;
+
+    letter-spacing: .5px;
+
+    text-align: center;
+
+    opacity: 0;
+
+}
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+#message {
+
+    margin-top: 25px;
+
+    max-width: 600px;
+
+    text-align: center;
+
+    line-height: 1.9;
+
+    color: #dbe4ff;
+
+    font-size: 1.08rem;
+
+    opacity: 0;
+
+}
+
+/* ==========================================
+   ANIMATION STATES
+========================================== */
+
+.show-bouquet {
+
+    animation:
+        bouquetEntrance 2.2s
+        cubic-bezier(.22,.91,.23,.99)
+        forwards;
+
+}
+
+@keyframes bouquetEntrance {
+
+    0% {
+
+        opacity:0;
+
+        transform:
+            scale(.3)
+            translateY(80px);
+
+    }
+
+    55% {
+
+        opacity:1;
+
+        transform:
+            scale(1.05)
+            translateY(-8px);
+
+    }
+
+    100% {
+
+        opacity:1;
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+.show-title {
+
+    animation:
+        fadeTitle .9s forwards;
+
+}
+
+@keyframes fadeTitle {
+
+    from {
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.show-message {
+
+    animation:
+        fadeMessage 1.2s forwards;
+
+}
+
+@keyframes fadeMessage {
+
+    from {
+
+        opacity:0;
+
+        transform:translateY(18px);
+
+    }
+
+    to {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width:700px){
+
+    #title{
+
+        font-size:2.8rem;
+
+    }
+
+    #message{
+
+        font-size:.98rem;
+
+        line-height:1.7;
+
+    }
+
+}
